@@ -1,0 +1,21 @@
+# Hello World :)
+
+So it's been a while since I was thinking to start writing out my own blogs with
+the pure purpose to gain and refine more of my knowledge and who knows one might
+explore something new with this journey.
+
+so yeah, some background about me. I'am sanjam, it would be evident from the
+blog's name itself. I will have it changed in  a while (open to suggestions).
+I'am a grad and currently working as a full time working professional.
+I'm quite intrigued and passionate about low level stuff, that basically
+comprises of X86_64 assembly, C, kernel programming and development.
+I'm still learning and exploring this field.
+
+so basically the question arises what you could expect from this blog?
+well I'll start expressing stuff related to the domain and my views 
+on the technology stacks and also would start with giving out deep insights
+about the kernel, language etc. which would be interesting for me as well as
+for you. I will try keep the blogs as simple as possible so a beginner could
+catch up interests with the blog and feel free to reach out incase of rectify
+at any point of time.
+ 
