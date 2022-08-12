@@ -2,6 +2,8 @@
 
 Header files and Libraries are common in programming languages and most of them
 would know what they mean and yet some get confused by the terms itself.
+
+
 A header file consists of all the prototypes,symbols and macros of a library
 while a library consists of all the definitions of the functions. Now in linux
 we can say a header file could be ```<stdio.h>```and the corresponding library would
@@ -14,10 +16,12 @@ linking the library to the program and lm is not but libm.so.6 and similary
 we have to specifiy the thread library (```-lpthread```) while writing out multi-
 threaded programs.
 
+
 while writing programs the first line is usually the header file.
 The declaration can be done like ```#include <stdio.h>``` or like ```#include"stdio.h"```, 
 now the question arises what would be difference between these two? one would 
 say just the angular brackets and the quotation marks but what does that signify?
+
 
 To keep it simple we can say that the angular brackets(```< >```) tips the compiler
 to search the particular header file in the default directory ```/usr/include/```.
@@ -28,6 +32,7 @@ user defined header files and libraries but if you place your header files and
 libraries in the default path (```/usr/include/``` and ```/usr/lib/```) then the angle
 brackets should just work fine with it (PS: don't forget to link the library
 while compiling).
+
 
 okay let's go on with some examples and try to define our own ```printf()``` ;).
 first lets declare the prototype of our own ```printf()``` in ``` stdio.h```
@@ -61,7 +66,9 @@ void main()
 ```
 and here's the ouput.
 
+
 ![output main](images/ss.png)
+
 
 here as for demonstration purposes I have just printed the first three characters
 so that we can verify that our defined ```printf()``` is been executed and not the
@@ -77,7 +84,9 @@ characters of the passed argument into the file and after closing the file the o
 displayed to the console.
 
 
+
 ![output error](images/ss1.png)
+
 
 now if we remove the ```stdio.h``` from the directory and then compile the program
 we would get an error of conflicting types. this is because the compiler couldn't
@@ -85,5 +94,6 @@ find a ```stdio.h``` header file in the current directory so it goes to the defa
 path ```/usr/include/``` and there it finds the header file but issue arises our function
 doesn't matches the prototype defined in the header file so a conflict arises and hence
 an error message gets displayed.
+
 
 if you have any clarifications or rectification in the blog feel free to reach out :)
