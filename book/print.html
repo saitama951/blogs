@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Floating Numbers</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -137,8 +137,8 @@
                     <main>
                         <h1 id="headers-and-libraries"><a class="header" href="#headers-and-libraries">Headers and Libraries</a></h1>
 <p>Header files and Libraries are common in programming languages and most of them
-would know what they mean and yet some get confused by the terms itself.
-A header file consists of all the prototypes,symbols and macros of a library
+would know what they mean and yet some get confused by the terms itself.</p>
+<p>A header file consists of all the prototypes,symbols and macros of a library
 while a library consists of all the definitions of the functions. Now in linux
 we can say a header file could be <code>&lt;stdio.h&gt;</code>and the corresponding library would
 be <code>libc.so.6</code>, you can find the header file at <code>/usr/include/</code> and find the libraries
@@ -146,9 +146,8 @@ at <code>/usr/lib/</code> and some libraries needs be specifically be linked whe
 while compiling the program so let's say you write a program relating to some
 mathematical operation and use some math functions (<code>sqrt()</code>,<code>pow()</code>,..) and then 
 while compiling the program you have to add the <code>-lm</code> flag that's nothing but 
-linking the library to the program and lm is not but libm.so.6 and similary
-we have to specifiy the thread library (<code>-lpthread</code>) while writing out multi-
-threaded programs.</p>
+<code>libm.so.6</code> and similary we have to specifiy the thread library (<code>-lpthread</code>) 
+while writing out multi-threaded programs.</p>
 <p>while writing programs the first line is usually the header file.
 The declaration can be done like <code>#include &lt;stdio.h&gt;</code> or like <code>#include&quot;stdio.h&quot;</code>, 
 now the question arises what would be difference between these two? one would 
@@ -209,6 +208,78 @@ find a <code>stdio.h</code> header file in the current directory so it goes to t
 path <code>/usr/include/</code> and there it finds the header file but issue arises our function
 doesn't matches the prototype defined in the header file so a conflict arises and hence
 an error message gets displayed.</p>
+<p>if you have any clarifications or rectification in the blog feel free to reach out :)</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="floating-numbers"><a class="header" href="#floating-numbers">Floating Numbers</a></h1>
+<p>Usually we don't deal much with floating numbers on a daily basis but this one's
+in particularly interesting.</p>
+<p>below is are two programs and their respective outputs.</p>
+<pre><code class="language-c">//main.c
+#include &quot;stdio.h&quot;
+
+void main()
+{
+        float x = 4.2;
+
+        if(x==4.2)
+                printf(&quot;EQUAL!&quot;);
+        else
+                printf(&quot;NOT EQUAL!&quot;);
+
+}
+</code></pre>
+<p>and the ouput for this particular program is</p>
+<p><img src="images/ss2.png" alt="ss2" /></p>
+<p>let me go on explaining this so the 4.21 on the right hand side of the equality
+operator is a double and the 4.21 on the left hand side is a float.but let's dive
+a bit deeper into this.for our better understanding we will consider a higher 
+abstraction.so let's convert this float and double into binary so that things
+gets easy for us.</p>
+<pre><code class="language-c">
+float (32 bits) --&gt; 4.2 --&gt; 0100 . 0011 0011 0011 0011 0011 0011 0011
+double (64 bits) --&gt;4.2 --&gt; 0100 . 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011
+
+</code></pre>
+<p>KEEP IN MIND that this is just a high level abstraction. this not how the bits are stored in memory.
+I'll write about the binary memory representation of floating  numbers in a different
+blog post. so we can clearly see that the number of bits are unequal and hence that's why 
+the condition becomes false and control goes to the else statement. changing the 4.21 of the
+right hand side of the equality operator to <code>4.21f</code> will make the condition true for the 
+if block. Incase you are wondering how to convert the floating point to binary (i.e 0.2) here
+is a representation of it.</p>
+<pre><code>0.2*2=0.4 -&gt; 0 |&lt;----
+0.4*2=0.8 -&gt; 0 |    |
+0.8*2=1.6 -&gt; 1 |    |
+0.6*2=1.2 -&gt; 1 ⌄    |
+0.2*2=0.4 -&gt; 0 ------
+
+</code></pre>
+<p>Now moving on to the next program</p>
+<pre><code class="language-c">//main.c
+#include &quot;stdio.h&quot;
+
+void main()
+{
+        float x = 4.5;
+
+        if(x==4.5)
+                printf(&quot;EQUAL!&quot;);
+        else
+                printf(&quot;NOT EQUAL!&quot;);
+
+}
+
+</code></pre>
+<p>and the ouput for this program is</p>
+<p><img src="images/ss3.png" alt="ss3" /></p>
+<p>Interesting right? just by changing the number we get a different output. so let get into
+it so when we convert the float and double to binary to get an idea.</p>
+<pre><code class="language-c">
+float (32 bits) --&gt; 4.5 --&gt; 0100 . 0100 0000 0000 0000 0000 0000 0000
+double(64 bits) --&gt; 4.5 --&gt; 0100 . 0100 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+
+</code></pre>
+<p>so we can see here there is no repetition of bits it's just 0's after the first two bits after the floating point
+hence the condition turns out to be true and the if block gets executed.</p>
 <p>if you have any clarifications or rectification in the blog feel free to reach out :)</p>
 
                     </main>

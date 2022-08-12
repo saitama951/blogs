@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Floating Numbers</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -136,8 +136,8 @@
                     <main>
                         <h1 id="headers-and-libraries"><a class="header" href="#headers-and-libraries">Headers and Libraries</a></h1>
 <p>Header files and Libraries are common in programming languages and most of them
-would know what they mean and yet some get confused by the terms itself.
-A header file consists of all the prototypes,symbols and macros of a library
+would know what they mean and yet some get confused by the terms itself.</p>
+<p>A header file consists of all the prototypes,symbols and macros of a library
 while a library consists of all the definitions of the functions. Now in linux
 we can say a header file could be <code>&lt;stdio.h&gt;</code>and the corresponding library would
 be <code>libc.so.6</code>, you can find the header file at <code>/usr/include/</code> and find the libraries
@@ -145,9 +145,8 @@ at <code>/usr/lib/</code> and some libraries needs be specifically be linked whe
 while compiling the program so let's say you write a program relating to some
 mathematical operation and use some math functions (<code>sqrt()</code>,<code>pow()</code>,..) and then 
 while compiling the program you have to add the <code>-lm</code> flag that's nothing but 
-linking the library to the program and lm is not but libm.so.6 and similary
-we have to specifiy the thread library (<code>-lpthread</code>) while writing out multi-
-threaded programs.</p>
+<code>libm.so.6</code> and similary we have to specifiy the thread library (<code>-lpthread</code>) 
+while writing out multi-threaded programs.</p>
 <p>while writing programs the first line is usually the header file.
 The declaration can be done like <code>#include &lt;stdio.h&gt;</code> or like <code>#include&quot;stdio.h&quot;</code>, 
 now the question arises what would be difference between these two? one would 
@@ -214,12 +213,18 @@ an error message gets displayed.</p>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="next" href="chapter_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="next" href="chapter_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
