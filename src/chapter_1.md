@@ -12,9 +12,8 @@ at ```/usr/lib/``` and some libraries needs be specifically be linked when with 
 while compiling the program so let's say you write a program relating to some
 mathematical operation and use some math functions (```sqrt()```,```pow()```,..) and then 
 while compiling the program you have to add the ```-lm``` flag that's nothing but 
-linking the library to the program and lm is not but libm.so.6 and similary
-we have to specifiy the thread library (```-lpthread```) while writing out multi-
-threaded programs.
+libm.so.6 and similary we have to specifiy the thread library (```-lpthread```) 
+while writing out multi-threaded programs.
 
 
 while writing programs the first line is usually the header file.
