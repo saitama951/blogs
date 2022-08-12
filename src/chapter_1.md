@@ -12,7 +12,7 @@ at ```/usr/lib/``` and some libraries needs be specifically be linked when with 
 while compiling the program so let's say you write a program relating to some
 mathematical operation and use some math functions (```sqrt()```,```pow()```,..) and then 
 while compiling the program you have to add the ```-lm``` flag that's nothing but 
-libm.so.6 and similary we have to specifiy the thread library (```-lpthread```) 
+```libm.so.6``` and similary we have to specifiy the thread library (```-lpthread```) 
 while writing out multi-threaded programs.
 
 
