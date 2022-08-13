@@ -145,75 +145,103 @@
                         <h1 id="floating-numbers"><a class="header" href="#floating-numbers">Floating Numbers</a></h1>
 <p>Usually we don't deal much with floating numbers on a daily basis but this one's
 in particularly interesting.</p>
-<p>below is are two programs and their respective outputs.</p>
-<pre><code class="language-c">//main.c
-#include &quot;stdio.h&quot;
+<p>Consider this program:</p>
+<h3 id="mainc"><a class="header" href="#mainc">main.c</a></h3>
+<pre><code class="language-c">#include &quot;stdio.h&quot;
 
-void main()
+int main()
 {
-        float x = 4.2;
+    float x = 4.2;
 
-        if(x==4.2)
-                printf(&quot;EQUAL!&quot;);
-        else
-                printf(&quot;NOT EQUAL!&quot;);
+    if(x == 4.2) {
+        printf(&quot;EQUAL!&quot;);
+    }
+    else {
+        printf(&quot;NOT EQUAL!&quot;);
+    }
 
 }
 </code></pre>
-<p>and the ouput for this particular program is</p>
+<h3 id="output-of-mainc"><a class="header" href="#output-of-mainc">Output of main.c</a></h3>
 <p><img src="images/ss2.png" alt="ss2" /></p>
-<p>let me go on explaining this so the 4.21 on the right hand side of the equality
-operator is a double and the 4.21 on the left hand side is a float.but let's dive
-a bit deeper into this.for our better understanding we will consider a higher 
-abstraction.so let's convert this float and double into binary so that things
-gets easy for us.</p>
-<pre><code class="language-c">
-float (32 bits) --&gt; 4.2 --&gt; 0100 . 0011 0011 0011 0011 0011 0011 0011
-double (64 bits) --&gt;4.2 --&gt; 0100 . 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011
+<p>Let me explain this. So the 4.2 on the right hand side of the equality
+operator is a double and the 4.2 on the left hand side is a float. </p>
+<p>Don't believe me? Let's prove my claim. Below is a program that uses 
+<code>_GENERIC()</code>keyword and an enumeration to check the type of both l-value and 
+r-value of the equality operator in the above program. For more details, check
+<a href="https://docs.microsoft.com/en-us/cpp/c-language/generic-selection?view=msvc-170">this link</a></p>
+<h3 id="typecheckc"><a class="header" href="#typecheckc">typecheck.c</a></h3>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
 
+#define typename(x) _Generic((x), float: &quot;float&quot;, double: &quot;double&quot;, default: &quot;other&quot;)
+
+enum t_typename {
+    TYPENAME_FLOAT,
+    TYPENAME_DOUBLE,
+    TYPENAME_OTHER
+};
+
+int main() {
+    float someFloatValue = 1.1;
+    printf(&quot;%s, %s&quot;, typename(1.1), typename(someFloatValue));
+}
 </code></pre>
-<p>KEEP IN MIND that this is just a high level abstraction. this not how the bits are stored in memory.
-I'll write about the binary memory representation of floating  numbers in a different
-blog post. so we can clearly see that the number of bits are unequal and hence that's why 
-the condition becomes false and control goes to the else statement. changing the 4.21 of the
-right hand side of the equality operator to <code>4.21f</code> will make the condition true for the 
-if block. Incase you are wondering how to convert the floating point to binary (i.e 0.2) here
-is a representation of it.</p>
-<pre><code>0.2*2=0.4 -&gt; 0 |&lt;----
-0.4*2=0.8 -&gt; 0 |    |
-0.8*2=1.6 -&gt; 1 |    |
-0.6*2=1.2 -&gt; 1 ⌄    |
-0.2*2=0.4 -&gt; 0 ------
-
+<h3 id="output-of-typecheckc"><a class="header" href="#output-of-typecheckc">Output of typecheck.c</a></h3>
+<p><img src="images/typecheck_output.png" alt="typecheck_output" /></p>
+<p>Okay, that was quite a segue. Let's dive a bit deeper into this, and understand 
+why this is happening. To understand things better, let's turn these values into 
+binary and see exactly what's happening.</p>
+<pre><code class="language-c">float (32 bits) --&gt; 4.2 --&gt; 0100 . 0011 0011 0011 0011 0011 0011 0011
+double (64 bits) --&gt; 4.2 --&gt; 0100 . 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011 0011
 </code></pre>
-<p>Now moving on to the next program</p>
-<pre><code class="language-c">//main.c
-#include &quot;stdio.h&quot;
+<p><strong>KEEP IN MIND</strong>: this is just for the sake of brevity. This not exactly how the 
+bits are stored in memory.  I'll write about the binary memory representation 
+of floating numbers in a different article. So, we can clearly see that the 
+number of bits are unequal and that's why the condition becomes false and 
+control goes to the else statement. changing the 4.21 of the right hand side 
+of the equality operator to <code>4.21f</code> will make the condition true for the 
+if block. Incase you are wondering how to convert the floating point to binary 
+(i.e. 0.2) here is a representation of it.</p>
+<pre><code>0.2*2=0.4 -&gt; 0 
+0.4*2=0.8 -&gt; 0 
+0.8*2=1.6 -&gt; 1 
+0.6*2=1.2 -&gt; 1 
+0.2*2=0.4 -&gt; 0 
+.
+.
+.
+</code></pre>
+<p>Let's re-write the main program with a different value this time</p>
+<h3 id="mainc-1"><a class="header" href="#mainc-1">main.c</a></h3>
+<pre><code class="language-c">#include &quot;stdio.h&quot;
 
-void main()
-{
-        float x = 4.5;
+int main() {
+    float x = 4.5;
 
-        if(x==4.5)
-                printf(&quot;EQUAL!&quot;);
-        else
-                printf(&quot;NOT EQUAL!&quot;);
-
+    if(x==4.5) {
+        printf(&quot;EQUAL!&quot;);
+    }
+    else {
+        printf(&quot;NOT EQUAL!&quot;);
+    }
 }
 
 </code></pre>
-<p>and the ouput for this program is</p>
+<h3 id="output-for-mainc"><a class="header" href="#output-for-mainc">Output for main.c</a></h3>
 <p><img src="images/ss3.png" alt="ss3" /></p>
-<p>Interesting right? just by changing the number we get a different output. so let get into
-it so when we convert the float and double to binary to get an idea.</p>
+<p>Interesting right? Just by changing the number we get a different output.
+Let's convert <code>4.5</code> to binary to get a better understanding of what's
+happening exactly.</p>
 <pre><code class="language-c">
 float (32 bits) --&gt; 4.5 --&gt; 0100 . 0100 0000 0000 0000 0000 0000 0000
-double(64 bits) --&gt; 4.5 --&gt; 0100 . 0100 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
+double (64 bits) --&gt; 4.5 --&gt; 0100 . 0100 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000
 
 </code></pre>
-<p>so we can see here there is no repetition of bits it's just 0's after the first two bits after the floating point
-hence the condition turns out to be true and the if block gets executed.</p>
-<p>if you have any clarifications or rectification in the blog feel free to reach out :)</p>
+<p>So, we can see here there is no repetition of bits. It's just 0's after the first 
+two bits after the floating point hence the condition turns out to be true and 
+the first condition gets executed.</p>
+<p>If you need any clarifications or have suggestions for the blog, feel free to reach out :)</p>
+<p>The blog page is open source, and you are free to open a pull request on <a href="https://github.com/saitama951/blogs">GitHub</a></p>
 
                     </main>
 
