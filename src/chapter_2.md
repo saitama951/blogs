@@ -1,7 +1,7 @@
 # Floating Numbers
 
-Usually we don't deal much with floating numbers on a daily basis but this one's
-in particularly interesting.
+Usually we don't deal much with floating numbers on a daily basis but this one
+in particularly, is interesting.
 
 Consider this program:
 
