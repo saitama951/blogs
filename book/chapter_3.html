@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Headers and Libraries - Sanjam&#x27;s Blog</title>
+        <title>Complation Stages - Sanjam&#x27;s Blog</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html" class="active"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Floating Numbers</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Complation Stages</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Floating Numbers</a></li><li class="chapter-item expanded "><a href="chapter_3.html" class="active"><strong aria-hidden="true">3.</strong> Complation Stages</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,95 +134,45 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="headers-and-libraries"><a class="header" href="#headers-and-libraries">Headers and Libraries</a></h1>
-<p>Header files and libraries are common in programming languages, and most of you
-would know what they mean. Yet some get confused by the terms itself.</p>
-<h2 id="header-file-vs-library"><a class="header" href="#header-file-vs-library">Header file vs Library:</a></h2>
-<p>A header file consists of all the prototypes, symbols and macros of a library
-while a library consists of all the definitions of the functions. Now in linux,
-we can say a header file could be <code>&lt;stdio.h&gt;</code>and the corresponding library would
-be <code>libc.so.6</code>. You can find the header file at <code>/usr/include/</code> and find the libraries
-at <code>/usr/lib/</code>. And some libraries needs be specifically be linked when with gcc
-while compiling the program. So let's say you write a program relating to some
-mathematical operation and use some math functions (<code>sqrt()</code>,<code>pow()</code>,..) and then 
-while compiling the program you have to add the <code>-lm</code> flag. That's nothing but 
-<code>libm.so.6</code> and similarly we have to specify the thread library (<code>-lpthread</code>) 
-while writing out multi-threaded programs.</p>
-<p>While writing programs, the first line is usually the header file.  The declaration can 
-be done like <code>#include &lt;stdio.h&gt;</code> or like <code>#include&quot;stdio.h&quot;</code>.  Now the 
-question arises, what would be difference between these two? One would say just the 
-angular brackets and the quotation marks. But what do they actually signify?</p>
-<p>To keep it simple, the angular brackets(<code>&lt; &gt;</code>) tells the compiler to search 
-the particular header file in the default directory (<code>/usr/include/</code>),
-while the double quotations(<code>&quot; &quot;</code>) tips the compiler to search for the header
-file in the current directory and if it doesn't find it there then it tries
-to find it in the default path (<code>/usr/include</code>). quotations are mostly used for
-user defined header files and libraries but if you place your header files and
-libraries in the default path (<code>/usr/include/</code> and <code>/usr/lib/</code>) then the angle
-brackets should just work fine with it (PS: don't forget to link the library
-while compiling).</p>
-<h2 id="making-our-own-printf"><a class="header" href="#making-our-own-printf">Making our own <code>printf()</code>:</a></h2>
-<p>Okay let's see some examples and try to define our own <code>printf()</code>.
-First lets declare the prototype of our own <code>printf()</code> in <code> stdio.h</code></p>
-<h3 id="stdioh"><a class="header" href="#stdioh"><code>stdio.h</code></a></h3>
-<pre><code class="language-c">void printf(char str[]);
-
-</code></pre>
-<p>And now define our function within <code>main.c</code>. keep in mind that <code>main.c</code>
-and our <code>stdio.h</code> should in the same level or directory.</p>
-<h3 id="mainc"><a class="header" href="#mainc"><code>main.c</code></a></h3>
-<pre><code class="language-c">#include &quot;stdio.h&quot;
-#include &quot;fcntl.h&quot;
-
-void printf(char str[])
-{
-	int fd = open(&quot;/dev/stdout&quot;,O_WRONLY);
-	int i;
-	for(i=0;i&lt;3;i++)
-	{
-		write(fd,str[i],1);
-	}
-	close(fd);
-}
-void main()
-{
-	printf(&quot;BYE. running default printf\n&quot;);
-}
-</code></pre>
-<h3 id="output-main"><a class="header" href="#output-main">Output main:</a></h3>
-<p><img src="images/ss.png" alt="output main" /></p>
-<p>For demonstration purposes I have printed just the first three characters
-so that we can verify that our custom <code>printf()</code> is been executed and not the
-default one. </p>
-<h2 id="explaining-the-code"><a class="header" href="#explaining-the-code">Explaining the code:</a></h2>
-<p>Let's see exactly did we did right now. As we are defining out own <code>printf</code>
-, we can't use the default <code>printf()</code> to print the output to the console.
-So what we did is opened a file which exists within the linux operating system
-<code>/dev/stdout</code>. Now <code>stdout, stdin, stderr</code> are files which are responsible for
-the I/O operations within the system. writing something to <code>stdout</code> would display
-the characters to the console. Similarly, writing something to <code>stdin</code> would mean 
-taking input from the console. And finally, <code>stderr</code> is responsible for displaying error
-to the console. So here we open the the <code>stdout</code> file and only write the first three
-characters of the passed argument into the file and after closing the file the output is
-displayed to the console.</p>
-<h3 id="output-error"><a class="header" href="#output-error">Output error:</a></h3>
-<p><img src="images/ss1.png" alt="output error" /></p>
-<p>Now, if we remove the <code>stdio.h</code> from the directory and then re-compile the program,
-we would get an error of conflicting types. This is because the compiler couldn't find a 
-<code>stdio.h</code> header file in the current directory so it goes to the default path 
-<code>/usr/include/</code>, and there it finds the header file. But an issue arises, as our function
-doesn't matches the prototype defined in the header file, and hence
-an error message gets displayed.</p>
-<p>If you need any clarifications or have suggestions in the blog feel free to reach out :)</p>
-<p>The blog page is open source, and you are free to open a pull request on 
-<a href="https://github.com/saitama951/blogs/blob/main/src/chapter_1.md">GitHub!</a></p>
+                        <h1 id="compilation-stages"><a class="header" href="#compilation-stages">Compilation Stages</a></h1>
+<p>We know the term &quot;compiling&quot; basically that means converting human readable code
+to machine generated code for the system to understand.Let's dive a bit deep 
+into stages of compilation</p>
+<p>So there are four basic stages of compilation which can be further bifurcated
+to different complex stages. but for a high level understanding let's keep it
+four.</p>
+<p>PREPROCESSING - - - - &gt; COMPILATION - - - - &gt; ASSEMBLY - - - - &gt; LINKING</p>
+<ol>
+<li>
+<p>PREPROCESSING :- It's a stage where all the contents of the header files gets
+pasted into the source files and creates and intermediatery
+file .we can easily confirm this by executing the following
+command <code>gcc -E test.c</code></p>
+</li>
+<li>
+<p>COMPILATION   :- This stage converts the preprocessed file into an assembly
+generated file which contains the assembly code. you can 
+check it out using <code>gcc -S test.c</code></p>
+</li>
+<li>
+<p>ASSEMBLY     :- This stages is responsible to convert the assembly code into
+the corresponding object code (non human readable code) . you can see
+this by the following command <code>gcc -c test.c</code></p>
+</li>
+<li>
+<p>LINKER       :- The linker takes one or more object code files and converts into 
+a single executable file. we can see this using ``` gcc -c test.c
+after this loader comes into the scenario which loads the program
+into the memory</p>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="next" href="chapter_2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
+                            <a rel="prev" href="chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
                             </a>
                         <div style="clear: both"></div>
                     </nav>
@@ -230,8 +180,8 @@ an error message gets displayed.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="next" href="chapter_2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
+                    <a rel="prev" href="chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
                     </a>
             </nav>
 

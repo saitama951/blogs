@@ -5,10 +5,7 @@
         <meta charset="UTF-8">
         <title>Sanjam&#x27;s Blog</title>
         <meta name="robots" content="noindex" />
-
-
         <!-- Custom HTML head -->
-        
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,18 +17,15 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
-
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
-
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -82,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Floating Numbers</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Headers and Libraries</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Floating Numbers</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Complation Stages</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -90,7 +84,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -117,7 +111,6 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-
                     </div>
                 </div>
 
@@ -131,7 +124,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
@@ -226,8 +218,8 @@ an error message gets displayed.</p>
 <p>The blog page is open source, and you are free to open a pull request on 
 <a href="https://github.com/saitama951/blogs/blob/main/src/chapter_1.md">GitHub!</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="floating-numbers"><a class="header" href="#floating-numbers">Floating Numbers</a></h1>
-<p>Usually we don't deal much with floating numbers on a daily basis but this one's
-in particularly interesting.</p>
+<p>Usually we don't deal much with floating numbers on a daily basis but this one
+in particularly, is interesting.</p>
 <p>Consider this program:</p>
 <h3 id="mainc-1"><a class="header" href="#mainc-1">main.c</a></h3>
 <pre><code class="language-c">#include &quot;stdio.h&quot;
@@ -325,47 +317,84 @@ two bits after the floating point hence the condition turns out to be true and
 the first condition gets executed.</p>
 <p>If you need any clarifications or have suggestions for the blog, feel free to reach out :)</p>
 <p>The blog page is open source, and you are free to open a pull request on <a href="https://github.com/saitama951/blogs">GitHub</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="compilation-stages"><a class="header" href="#compilation-stages">Compilation Stages</a></h1>
+<p>We know the term &quot;compiling&quot; basically that means converting human readable code
+to machine generated code for the system to understand.Let's dive a bit deep 
+into stages of compilation</p>
+<p>So there are four basic stages of compilation which can be further bifurcated
+to different complex stages. but for a high level understanding let's keep it
+four.</p>
+<p>PREPROCESSING - - - - &gt; COMPILATION - - - - &gt; ASSEMBLY - - - - &gt; LINKING</p>
+<ol>
+<li>
+<p>PREPROCESSING :- It's a stage where all the contents of the header files gets
+pasted into the source files and creates and intermediatery
+file .we can easily confirm this by executing the following
+command <code>gcc -E test.c</code></p>
+</li>
+<li>
+<p>COMPILATION   :- This stage converts the preprocessed file into an assembly
+generated file which contains the assembly code. you can 
+check it out using <code>gcc -S test.c</code></p>
+</li>
+<li>
+<p>ASSEMBLY     :- This stages is responsible to convert the assembly code into
+the corresponding object code (non human readable code) . you can see
+this by the following command <code>gcc -c test.c</code></p>
+</li>
+<li>
+<p>LINKER       :- The linker takes one or more object code files and converts into 
+a single executable file. we can see this using ``` gcc -c test.c
+after this loader comes into the scenario which loads the program
+into the memory</p>
+</li>
+</ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-
-
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-
             </nav>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
 
-
-
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
         <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-
-
         <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-
         <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
         <script src="book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-
         <script type="text/javascript">
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-
     </body>
 </html>
